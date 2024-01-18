@@ -4,10 +4,25 @@ const fs = require('fs');
 const server = http.createServer((req,res)=>{
 console.log(req.url,req.method);
 
+// using a route for about and 404
+
+let path = "./views/";
+
+switch(req.url){
+    case '/':
+        path+='index.html';
+        break;
+    case '/about':
+        path += "about.html";
+        break;
+    default:
+        path+= "404.html";
+}
+
 // set header content type
 res.setHeader('Content-type','text/html');
 //sending  a html file
-fs.readFile('./views/index.html/',(err,data)=>{
+fs.readFile(path,(err,data)=>{
     if(err){
         console.log(err);
         res.end();
